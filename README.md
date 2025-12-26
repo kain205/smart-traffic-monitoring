@@ -14,7 +14,24 @@ A CCTV-based traffic analysis solution focusing on automated monitoring and traf
 
 ---
 
-## 2. Key Features
+## 2. Demo
+
+### Single Stream
+https://github.com/user-attachments/assets/7542b8bf-541b-456e-97eb-eed8597a997f
+
+
+
+### Multi Stream 
+https://github.com/user-attachments/assets/ea8ba138-6ef5-4b9f-bfe9-43005c54e719
+
+
+---
+
+
+
+
+
+## 3. Key Features
 
 ### ✅ Object Detection
 - Detects vehicles using **YOLO11**.
@@ -37,15 +54,6 @@ A CCTV-based traffic analysis solution focusing on automated monitoring and traf
 
 ---
 
-## 3. Demo
-
-### Single Stream
-![Single Stream](demo/single_stream.png)
-
-### Multi Stream (2x2 Grid)
-![Multi Stream](demo/multi_stream.png)
-
----
 
 ## 4. Installation & Usage
 

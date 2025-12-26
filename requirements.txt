@@ -1,0 +1,11 @@
+# Core dependencies
+ultralytics>=8.0.0
+opencv-python>=4.8.0
+numpy>=1.24.0
+
+# GPU Support (CUDA 12.8)
+# Install PyTorch with CUDA separately:
+# pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+
+# Note: ultralytics will auto-install torch if not present (CPU version)
+# For GPU acceleration, install PyTorch with CUDA BEFORE installing ultralytics

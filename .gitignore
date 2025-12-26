@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Project Specific
+outputs/
+Option1/
+*.pt
+*.onnx
+runs/
+
+# System
+Thumbs.db
+Desktop.ini
+
+
+demo/

@@ -1,0 +1,61 @@
+{
+  "video": "Road_3",
+  "resolution": [
+    1280,
+    720
+  ],
+  "perspective_points": [
+    [
+      332,
+      275
+    ],
+    [
+      681,
+      325
+    ],
+    [
+      536,
+      759
+    ],
+    [
+      -90,
+      494
+    ]
+  ],
+  "roi_points": [
+    [
+      331,
+      273
+    ],
+    [
+      739,
+      329
+    ],
+    [
+      654,
+      791
+    ],
+    [
+      -109,
+      496
+    ]
+  ],
+  "lane_line": [
+    [
+      470,
+      291
+    ],
+    [
+      123,
+      584
+    ]
+  ],
+  "lanes": {
+    "left": {
+      "expected_direction": "up"
+    },
+    "right": {
+      "expected_direction": "down"
+    }
+  }
+}

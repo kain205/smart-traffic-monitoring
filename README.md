@@ -1,37 +1,39 @@
 # Traffic Analysis Solution - Vehicle Tracking & Wrong-way Detection
----
-## 1. Project Overview (Tổng quan)
-
-Giải pháp phân tích giao thông dựa trên CCTV, tập trung vào các tính năng tự động hóa giám sát và phân tích hành vi giao thông:
-
-- **Detection & Tracking:** Sử dụng **YOLO11** kết hợp **ByteTrack** (state-of-the-art) để phát hiện và theo dõi phương tiện với độ chính xác cao.
-- **Wrong-way Detection:** Phát hiện xe đi ngược chiều dựa trên cấu hình Polygon Zones và hướng di chuyển dự kiến.
-- **Speed Estimation:** Ước lượng vận tốc (km/h) sử dụng kỹ thuật Perspective Transformation (homography).
-- **Multi-stream Processing:** Hỗ trợ xử lý song song nhiều nguồn video (Multithreading) để tối ưu hiệu năng.
-- **Reporting:** Tự động xuất báo cáo JSON summary và video đã được gán nhãn (annotated).
 
 ---
 
-## 2. Tính năng chính
+## 1. Project Overview
 
-### ✅ Phát hiện đối tượng (Object Detection)
-- Phát hiện phương tiện sử dụng **YOLO11**.
-- Phân loại 4 loại phương tiện chính: `car`, `motorcycle`, `bus`, `truck`.
-- Đếm số lượng phương tiện theo từng loại trong khung hình.
+A CCTV-based traffic analysis solution focusing on automated monitoring and traffic behavior analysis features:
 
-### ✅ Theo dõi đối tượng (Multi-Object Tracking)
-- Tích hợp **ByteTrack** để theo dõi đa đối tượng.
-- Gán và duy trì ID duy nhất (Unique ID) cho mỗi phương tiện trong suốt quá trình di chuyển.
-- Lưu trữ và hiển thị lịch sử di chuyển (trajectory) của từng xe.
+- **Detection & Tracking:** Utilizes **YOLO11** combined with **ByteTrack** (state-of-the-art) to detect and track vehicles with high accuracy.
+- **Wrong-way Detection:** Detects wrong-way vehicles based on Polygon Zones and expected movement direction.
+- **Speed Estimation:** Estimates speed (km/h) using Perspective Transformation (homography) techniques.
+- **Multi-stream Processing:** Supports parallel processing of multiple video sources (Multithreading) to optimize performance.
+- **Reporting:** Automatically exports JSON summary reports and annotated videos.
 
-### ✅ Phân tích hành vi & Giao thông
-- **Phát hiện đi ngược chiều (Wrong-way detection):** Cảnh báo ngay lập tức khi phương tiện di chuyển sai hướng quy định.
-- **Phân chia làn đường:** Hỗ trợ định nghĩa ROI (Region of Interest) và Lane Divider.
-- **Ước tính tốc độ:** Chuyển đổi tọa độ sang bird's-eye view để tính toán vận tốc thực tế (km/h).
+---
 
-### ✅ Tool cấu hình Zone trực quan
-- **Setup Tool**: Giao diện GUI (OpenCV) tương tác để vẽ zone, chọn điểm perspective, kẻ vạch phân làn.
-- Hỗ trợ lưu/load cấu hình (JSON) cho từng camera/video khác nhau.
+## 2. Key Features
+
+### ✅ Object Detection
+- Detects vehicles using **YOLO11**.
+- Classifies 4 main vehicle types: `car`, `motorcycle`, `bus`, `truck`.
+- Counts the number of vehicles by type within the frame.
+
+### ✅ Multi-Object Tracking
+- Integrates **ByteTrack** for multi-object tracking.
+- Assigns and maintains a Unique ID for each vehicle throughout its movement.
+- Stores and displays the movement trajectory of each vehicle.
+
+### ✅ Behavior & Traffic Analysis
+- **Wrong-way Detection:** Immediately alerts when a vehicle moves in the wrong direction.
+- **Lane Division:** Supports defining ROI (Region of Interest) and Lane Dividers.
+- **Speed Estimation:** Converts coordinates to a bird's-eye view to calculate actual speed (km/h).
+
+### ✅ Visual Zone Configuration Tool
+- **Setup Tool:** Interactive GUI (OpenCV) to start drawing zones, selecting perspective points, and drawing lane dividers.
+- Supports saving/loading configurations (JSON) for different cameras/videos.
 
 ---
 
@@ -45,56 +47,56 @@ Giải pháp phân tích giao thông dựa trên CCTV, tập trung vào các tí
 
 ---
 
-## 4. Cài đặt & Hướng dẫn sử dụng
+## 4. Installation & Usage
 
-### Yêu cầu hệ thống (Prerequisites)
+### Prerequisites
 - Python 3.8+
-- GPU (Recommended CUDA) hoặc CPU
-- Các thư viện: `ultralytics`, `opencv-python`, `numpy`...
+- GPU (Recommended CUDA) or CPU
+- Libraries: `ultralytics`, `opencv-python`, `numpy`...
 
-### Cài đặt (Installation)
+### Installation
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Cấu trúc project
+### Project Structure
 
 ```
 vehicle_tracking/
-├── main.py                 # Entry point chính
+├── main.py                 # Main entry point
 ├── tracker.py              # Core logic: Vehicle tracking & detection
-├── stream_processor.py     # Xử lý luồng video (Single/Threaded)
-├── multi_stream.py         # Quản lý Multi-stream
-├── setup_zones.py          # Tool cấu hình Zone/ROI
-├── extract_frames.py       # Tool trích xuất frames (dataset preparation)
+├── stream_processor.py     # Video stream processing (Single/Threaded)
+├── multi_stream.py         # Multi-stream management
+├── setup_zones.py          # Zone/ROI configuration tool
+├── extract_frames.py       # Frame extraction tool (dataset preparation)
 ├── utils/
-│   └── zone_loader.py      # Module load config
-├── configs/                # File cấu hình JSON cho từng video
-├── outputs/                # Thư mục chứa kết quả (Video + Report)
-└── yolo11n.pt              # Model YOLO weights
+│   └── zone_loader.py      # Config loading module
+├── configs/                # JSON configuration files for each video
+├── outputs/                # Output directory (Video + Report)
+└── yolo11n.pt              # YOLO model weights
 ```
 
-### Hướng dẫn sử dụng
+### Usage Guide
 
-#### Bước 1: Cấu hình Zone (Lần đầu hoặc khi đổi góc camera)
-Chạy tool setup để định nghĩa vùng quan tâm và góc quay:
+#### Step 1: Zone Configuration (First time or when camera angle changes)
+Run the setup tool to define the region of interest and perspective:
 ```bash
 python setup_zones.py --video Option1/Road_1.mp4 --mode all
 ```
-*Controls: Click để chọn điểm, `C` để clear, `S` để lưu.*
+*Controls: Click to select points, `C` to clear, `S` to save.*
 
-#### Bước 2: Chạy phân tích (Single Video)
+#### Step 2: Run Analysis (Single Video)
 ```bash
 python main.py run --video Road_1.mp4
 ```
 
-#### Bước 3: Chạy chế độ Multi-stream (Giám sát nhiều camera)
+#### Step 3: Run Multi-stream Mode (Monitor multiple cameras)
 ```bash
 python main.py run --multi
 ```
 
-#### Trích xuất dữ liệu để finetune YOLO model (Optional)
+#### Extract Data for YOLO Finetuning (Optional)
 ```bash
 python extract_frames.py --random 50
 ```
@@ -103,9 +105,9 @@ python extract_frames.py --random 50
 
 ## 5. Output
 
-Hệ thống sẽ xuất dữ liệu vào thư mục `outputs/`:
-1. **Video Result (.mp4):** Visualized với bounding boxes, thông tin xe, cảnh báo, tốc độ.
-2. **JSON Summary:** Thống kê tổng hợp (tổng lưu lượng, số lượng từng loại xe, số vi phạm...).
+The system will export data to the `outputs/` directory:
+1. **Video Result (.mp4):** Visualized with bounding boxes, vehicle info, warnings, and speed.
+2. **JSON Summary:** Aggregated statistics (total flow, count by vehicle type, violations...).
 
 ```json
 {
